@@ -1,0 +1,138 @@
+{
+    "name": "brandon14/cloudinary-flysystem",
+    "description": "Flysystem V2/V3 adapter for the Cloudinary API.",
+    "keywords": [
+        "flysystem",
+        "adapter",
+        "cloudinary",
+        "library",
+        "flysystem",
+        "flysystem-v2",
+        "flysystem-v3"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/brandon14/cloudinary-flysystem",
+    "type": "library",
+    "support": {
+        "issues": "https://github.com/brandon14/cloudinary-flysystem/issues",
+        "source": "https://github.com/brandon14/cloudinary-flysystem",
+        "email": "brandon14125@gmail.com"
+    },
+    "authors": [
+        {
+            "name": "Brandon Clothier",
+            "email": "brandon14125@gmail.com",
+            "homepage": "https://brandonclothier.me",
+            "role": "Lead Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Brandon14\\CloudinaryFlysystem\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Brandon14\\CloudinaryFlysystem\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^7.2.5 || ^8.0",
+        "ext-json": "*",
+        "cloudinary/cloudinary_php": "^2.0.0",
+        "league/flysystem": "^2.0.0 || ^3.0.0",
+        "myclabs/php-enum": "^1.7",
+        "psr/log": "^1.0.0 || ^2.0.0 || ^3.0.0"
+    },
+    "require-dev": {
+        "comcast/php-legal-licenses": "^1.3.0",
+        "friendsofphp/php-cs-fixer": "^2.19.3 || ^3.59.3",
+        "league/flysystem-adapter-test-utilities": "^2.4.5 || ^3.28.0",
+        "neronmoon/scriptsdev": "^0.1.9",
+        "nunomaduro/phpinsights": "^1.14.1 || ^2.11.0",
+        "phpmd/phpmd": "^2.15",
+        "phpstan/phpstan": "^1.11.5",
+        "roave/security-advisories": "dev-latest",
+        "symfony/phpunit-bridge": "^7.1.1",
+        "symfony/thanks": "^1.3.0",
+        "vlucas/phpdotenv": "^5.6.0"
+    },
+    "scripts": {
+        "analyze": [
+            "@composer run-script analyze:insights",
+            "@composer run-script analyze:phpstan"
+        ],
+        "analyze:insights": "phpinsights",
+        "analyze:phpstan": "phpstan analyse",
+        "composer:validate": "@composer validate --no-check-all --strict",
+        "lint:phpmd": "phpmd ./ text ./phpmd.xml.dist",
+        "lint:php-cs-fixer:fix": [
+            "@putenv PHP_CS_FIXER_IGNORE_ENV=1",
+            "php-cs-fixer fix"
+        ],
+        "lint:php-cs-fixer:check": "@composer run-script lint:php-cs-fixer:fix -- --dry-run --verbose",
+        "lint": [
+            "@composer run-script lint:phpmd",
+            "@composer run-script lint:php-cs-fixer:check"
+        ],
+        "lint:fix": [
+            "@composer run-script lint:php-cs-fixer:fix"
+        ],
+        "test:php": [
+            "Composer\\Config::disableProcessTimeout",
+            "@putenv XDEBUG_MODE=coverage",
+            "simple-phpunit --testdox"
+        ],
+        "test:php:unit": [
+            "Composer\\Config::disableProcessTimeout",
+            "@putenv XDEBUG_MODE=coverage",
+            "simple-phpunit --testdox --testsuite Unit"
+        ],
+        "test:php:integration": [
+            "Composer\\Config::disableProcessTimeout",
+            "@putenv XDEBUG_MODE=coverage",
+            "simple-phpunit --testdox --testsuite Integration"
+        ],
+        "test": [
+            "@composer run-script composer:validate",
+            "@composer check-platform-reqs --no-dev",
+            "@composer run-script lint",
+            "@composer run-script test:php"
+        ],
+        "licenses:generate": [
+            "php-legal-licenses generate",
+            "@php ./scripts/copy-license.php"
+        ],
+        "post-update-cmd": [
+            "@composer run-script composer:validate"
+        ],
+        "post-install-cmd": [
+            "@composer run-script composer:validate"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/thanks": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "neronmoon/scriptsdev": true
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev",
+            "dev-main": "1.0-dev",
+            "dev-latest": "1.0-dev"
+        },
+        "scripts-dev": {
+            "post-update-cmd": [
+                "@composer run-script licenses:generate"
+            ],
+            "post-install-cmd": [
+                "@composer run-script licenses:generate"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
